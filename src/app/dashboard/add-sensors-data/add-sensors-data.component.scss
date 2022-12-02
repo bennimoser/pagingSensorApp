@@ -1,0 +1,17 @@
+.container{
+  display:flex;
+  flex-direction: column;
+  margin: 1rem !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.row .inputfield
+{
+  max-width: 50vw;
+  width: 50vw;
+}
+
+.content-container{
+  margin:1rem;
+}

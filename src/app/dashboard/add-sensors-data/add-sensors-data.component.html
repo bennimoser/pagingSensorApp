@@ -1,0 +1,106 @@
+<div class="content-container">
+  <button
+    color="{{ showAddTask ? 'secondary' : 'primary' }}"
+    (click)="toggleAddTask()"
+    mat-raised-button
+  >
+    {{ showAddTask ? "Close" : "Add" }}
+  </button>
+  <div class="content-container">
+    <mat-card *ngIf="showAddTask">
+      <mat-card-content>
+        <div class="container">
+          <div class="column">
+            <div class="row">
+              <h2>Erstellen eines Datenpunkts</h2>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <form [formGroup]="sensorenDataForm" (ngSubmit)="onSubmit()">
+            <div class="column">
+              <div class="row">
+                <mat-form-field class="inputfield">
+                  <mat-label>Datum:</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="datetime"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error
+                    *ngIf="sensorenDataForm.controls['datetime'].invalid"
+                    >Datum ist nicht gültig!</mat-error
+                  >
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="inputfield">
+                  <mat-label>Temperatur:</mat-label>
+                  <input
+                    matInput
+                    placeholder="Temperatur"
+                    type="number"
+                    formControlName="temperature"
+                  />
+                  <mat-error
+                    *ngIf="sensorenDataForm.controls['temperature'].invalid"
+                    >Temperatur muss ausgefüllt und eine Zahl sein (!</mat-error
+                  >
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="inputfield">
+                  <mat-label>Luftfeuchtigkeit:</mat-label>
+                  <input
+                    matInput
+                    placeholder="Luftfeuchtigkeit"
+                    type="number"
+                    formControlName="humidity"
+                  />
+                  <mat-error
+                    *ngIf="sensorenDataForm.controls['humidity'].invalid"
+                    >Luftfeuchtigkeit muss ausgefüllt und eine Zahl
+                    sein!</mat-error
+                  >
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="inputfield">
+                  <mat-label>Sensor:</mat-label>
+                  <mat-select formControlName="sensorId" matInput>
+                    <mat-option
+                      *ngFor="let sensor of sensoren"
+                      [value]="sensor.id"
+                    >
+                      {{ sensor.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="sensorenDataForm.controls['sensorId'].invalid"
+                    >Sensor muss ausgewählt werden!</mat-error
+                  >
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <button
+                  disabled="{{ sensorenDataForm.invalid }}"
+                  mat-raised-button
+                  color="secondary"
+                  type="submit"
+                >
+                  Erfassen
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
